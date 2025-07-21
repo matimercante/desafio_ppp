@@ -1,0 +1,17 @@
+.startpage__container {
+  grid-template-columns: 1fr;
+  align-items: end;
+  gap: 30px;
+  height: 100vh;
+  padding: 0 20px;
+  display: grid;
+}
+
+.startpage__hands-container {
+  background-color: #ff0;
+  justify-content: space-around;
+  height: 100px;
+  display: flex;
+  overflow: hidden;
+}
+/*# sourceMappingURL=desafio-juego.c6a84212.css.map */

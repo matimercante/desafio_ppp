@@ -1,0 +1,52 @@
+{
+  "compilerOptions": {
+    /* Nivel de lenguaje */
+    "target": "ES2022", // Usa la versión más moderna de ECMAScript
+    "lib": ["ES2022", "DOM", "DOM.Iterable"], // APIs que estarán disponibles
+    "module": "ESNext", // Compatibilidad con módulos ES
+
+    // /* Características del lenguaje */
+    // "strict": true, // Habilita todas las verificaciones de tipo estrictas
+    // "noImplicitAny": true, // Error cuando se infiere tipo 'any' implícitamente
+    // "strictNullChecks": true, // Mejor manejo de null/undefined
+    // "strictFunctionTypes": true, // Chequeo estricto de tipos de funciones
+    // "strictBindCallApply": true, // Chequeo estricto para bind/call/apply
+    // "strictPropertyInitialization": false, // Desactivado para Web Components
+
+    /* Módulos */
+    "moduleResolution": "node", // Compatibilidad con Node.js
+    "esModuleInterop": true, // Mejor interoperabilidad ES/CommonJS
+    "resolveJsonModule": true, // Permite importar JSON
+    "isolatedModules": true, // Garantiza compatibilidad con transpiladores
+
+    /* Características experimentales */
+    "experimentalDecorators": true, // Para posibles decoradores futuros
+    "useDefineForClassFields": true, // Comportamiento moderno para campos de clase
+
+    /* Emisión */
+    "sourceMap": true, // Genera source maps para debugging
+    "outDir": "./dist", // Directorio de salida (Parcel lo ignorará)
+    "removeComments": true, // Elimina comentarios en el output
+
+    /* Checks adicionales */
+    "skipLibCheck": true, // Salta verificación de archivos .d.ts
+    "forceConsistentCasingInFileNames": true, // Evita problemas en sistemas case-sensitive
+
+    /* Personalización para Web Components */
+    "downlevelIteration": true, // Mejor soporte para iteración
+    "noUnusedLocals": true, // Reporta variables locales no usadas
+    "noUnusedParameters": true // Reporta parámetros no usados
+  },
+
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.d.ts",
+    "declarations.d.ts" // Incluye tus declaraciones personalizadas
+  ],
+
+  "exclude": [
+    "node_modules",
+    "dist",
+    "**/*.spec.ts" // Excluye tests si los tienes
+  ]
+}

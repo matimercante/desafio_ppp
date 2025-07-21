@@ -1,0 +1,15 @@
+{
+  "name": "desafio-juego",
+  "source": "src/index.html",
+  "scripts": {
+    "dev": "parcel",
+    "build": "parcel build --public-url ",
+    "deploy": "gh-pages -d build"
+  },
+  "devDependencies": {
+    "@parcel/transformer-svg": "^2.15.4",
+    "@types/node": "^24.0.10",
+    "parcel": "latest",
+    "vite": "^7.0.4"
+  }
+}

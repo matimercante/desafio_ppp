@@ -1,0 +1,14 @@
+/* .test{
+  display:grid;
+  align-items: ;
+} */
+* {
+  box-sizing: border-box;
+}
+html,
+body {
+  margin: 0;
+  height: 100vh;
+  background-image: url("/public/background.png");
+  background-size: 35%;
+}

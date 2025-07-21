@@ -1,0 +1,15 @@
+.gamepage__container {
+  padding: 0 20px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 30px;
+  align-items: end;
+  height: 100vh;
+}
+.gamepage__hands-container {
+  display: flex;
+  justify-content: space-around;
+  height: 200px;
+  background-color: yellow;
+  overflow: hidden;
+}

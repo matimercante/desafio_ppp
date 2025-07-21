@@ -1,0 +1,9 @@
+.resultspage__container {
+  grid-template-columns: 1fr;
+  align-items: end;
+  gap: 30px;
+  height: 100vh;
+  padding: 0 20px;
+  display: grid;
+}
+/*# sourceMappingURL=desafio-juego.bd2dfb1a.css.map */
