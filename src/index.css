@@ -7,8 +7,9 @@
 }
 html,
 body {
-  margin: 0;
+  margin: 0 auto;
   height: 100vh;
-  background-image: url("/public/background.png");
+  background-image: url("/src/pictures/background.png");
   background-size: 35%;
+  max-width: 375px;
 }

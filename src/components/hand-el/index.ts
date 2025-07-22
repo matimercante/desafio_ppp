@@ -1,58 +1,48 @@
-import tijeras from "../../pictures/tijera.svg";
-import piedra from "../../../public/piedra.png";
-import papel from "../../../public/papel.png";
+const hands = {
+  tijeras: require("url:../../pictures/tijera.svg"),
+  piedra: require("url:../../pictures/piedra.png"),
+  papel: require("url:../../pictures/papel.png"),
+};
 
 export class Hand extends HTMLElement {
   shadow = this.attachShadow({ mode: "open" });
   variant: string = "";
   estilo: string = "";
-  objetoPpt: Record<string, string> = {
-    piedra,
-    papel,
-    tijeras,
-  };
 
   constructor() {
     super();
-
     const attrVariant = this.getAttribute("variant");
-    if (!attrVariant || !(attrVariant in this.objetoPpt)) {
-      console.error("Error: no se ingresó una variante válida");
-      return;
-    }
     this.variant = attrVariant;
-
     const attrEstilo = this.getAttribute("estilo");
     this.estilo = attrEstilo ?? "";
   }
 
   connectedCallback() {
     this.render();
-    this.setupListeners();
+
+    const imgEl = this.shadow.querySelector<HTMLImageElement>(
+      `#${this.variant}`
+    );
+
+    if (this.estilo !== "computer") {
+      imgEl?.addEventListener("click", this.onClick);
+    }
+
+    document.addEventListener("computermove", this.onComputerMove);
   }
 
   disconnectedCallback() {
     const imgEl = this.shadow.querySelector<HTMLImageElement>(
       `#${this.variant}`
     );
-    imgEl?.removeEventListener("click", this.onClick);
-  }
 
-  private setupListeners() {
-    const imgEl = this.shadow.querySelector<HTMLImageElement>(
-      `#${this.variant}`
-    );
-    imgEl?.addEventListener("click", this.onClick);
+    imgEl?.removeEventListener("click", this.onClick);
+
+    this.removeEventListener("computermove", this.onComputerMove);
   }
 
   private onClick = (e: Event) => {
     e.preventDefault();
-
-    const imgEl = this.shadow.querySelector<HTMLImageElement>(
-      `#${this.variant}`
-    );
-    imgEl?.classList.add("selected");
-
     this.dispatchEvent(
       new CustomEvent("handselected", {
         detail: {
@@ -65,20 +55,34 @@ export class Hand extends HTMLElement {
     );
   };
 
-  render() {
-    const imgSrc = this.objetoPpt[this.variant];
+  private onComputerMove = (e: Event) => {
+    const imgEl = this.shadow.querySelector<HTMLImageElement>(
+      `#${this.variant}`
+    );
+    const t = e.detail as any;
+    if (this.estilo === "computer" && this.variant === t.id) {
+      console.log(this.variant, t.id);
+      imgEl?.classList.add("show");
+    }
+  };
 
+  render() {
     this.shadow.innerHTML = `
       <style>
         .container {
-          position: relative;
+          max-width:375px;;
         }
 
-        *{
+        .hand{
           width: 104px;
           height: 230px;
           position: relative;
-          bottom: -20px;
+          bottom: -5px;
+        }
+        
+        .hand:hover{
+        opacity:50%;
+        height: 200px;
         }
 
         .mini {
@@ -87,32 +91,31 @@ export class Hand extends HTMLElement {
         }
 
         .game {
-          bottom: 20px;
+          bottom: 0px;
         }
-
-        .unselected {
-          bottom: -20px;
-          opacity: 50%;
-        }
-
-        .big {
-          width: 159px;
-          height: 356px;
-          bottom: -60px;
-        }
-
-        .big.computer {
-          top: -60px;
+        
+        .computer {
           transform: rotate(180deg);
+          position:relative;
+          top:-30px;
+          display:none;
         }
+        .computer.show{
+          display:block
+          }
+
+        .computer:hover{
+          opacity:100%;
+        }
+
       </style>
 
       <div class="container">
         <img
-          src="${imgSrc}"
+          src="${hands[this.variant]}"
           alt="${this.variant}"
           id="${this.variant}"
-          class="${this.estilo}"
+          class="hand ${this.estilo}"
         />
       </div>
     `;

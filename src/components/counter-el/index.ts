@@ -21,8 +21,8 @@ export class Counter extends HTMLElement {
     this.shadow.innerHTML = `
       <style>
         .circle {
-          width: 250px;
-          height: 250px;
+          width: 200px;
+          height: 200px;
           border-radius: 50%;
           background-color: transparent;
           border: 20px solid black;

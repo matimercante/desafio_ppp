@@ -8,6 +8,9 @@ export const state = {
   history: [],
   listeners: [],
 
+  init() {
+    this.syncWithLocalStorage();
+  },
   getState() {
     return this.data;
   },
@@ -18,13 +21,10 @@ export const state = {
 
   setState(newState) {
     this.data = newState;
-    console.log("setState newstate", newState);
     this.history.push({ ...newState });
     for (const cb of this.listeners) {
       cb;
     }
-    console.log("setstate history", this.getHistory());
-
     localStorage.setItem("state", JSON.stringify(newState));
     localStorage.setItem("history", JSON.stringify(this.history));
   },
@@ -35,9 +35,6 @@ export const state = {
 
   setPlay(usermove: Play, computermove: Play) {
     const cs = this.getState();
-    // console.log("cs setplay", cs);
-    // console.log("setplay", usermove, computermove);
-
     cs.userPlay = usermove;
     cs.computerPlay = computermove;
     this.setState(cs);
@@ -84,5 +81,16 @@ export const state = {
     this.history = [];
     localStorage.removeItem("state");
     localStorage.removeItem("history");
+  },
+
+  syncWithLocalStorage() {
+    const storageState = localStorage.getItem("state");
+    const historyState = localStorage.getItem("history");
+    if (storageState) {
+      this.data = JSON.parse(storageState);
+    }
+    if (historyState) {
+      this.history = JSON.parse(historyState);
+    }
   },
 };

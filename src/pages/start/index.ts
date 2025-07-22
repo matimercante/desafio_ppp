@@ -1,3 +1,5 @@
+import { state } from "../../state.js";
+
 export function initStartPage(goTo) {
   const homePage = document.createElement("div");
   homePage.innerHTML = `
@@ -17,6 +19,7 @@ y elegí: piedra, papel o tijera antes de que pasen los 3 segundos.</my-text>
     const startButtonEl = document.querySelector("#play-btn");
     startButtonEl?.addEventListener("click", (e) => {
       e.preventDefault();
+      state.resetGame();
       goTo.goTo("/game");
     });
   });

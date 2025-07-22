@@ -130,7 +130,7 @@
 
   // Only insert newRequire.load when it is actually used.
   // The code in this file is linted against ES5, so dynamic import is not allowed.
-  // INSERT_LOAD_HERE
+  function $parcel$resolve(url) {  url = importMap[url] || url;  return import.meta.resolve(distDir + url);}newRequire.resolve = $parcel$resolve;
 
   Object.defineProperty(newRequire, 'root', {
     get: function () {
@@ -674,59 +674,46 @@ var _index3 = require("./components/counter-el/index");
 var _index4 = require("./components/result-el/index");
 var _index5 = require("./components/score-el/index");
 var _router = require("./router");
+var _stateJs = require("./state.js");
+(0, _stateJs.state).init();
 const containerEl = document.querySelector(".root");
-// console.log(containerEl?.innerHTML);
-// console.log("initrouter index.ts", initRouter(containerEl));
 containerEl && (0, _router.initRouter)(containerEl);
 
-},{"./components/hand-el/index":"arf04","./components/text-el/index":"iQ3Yo","./components/button-el/index":"38ban","./router":"4wVP1","./components/counter-el/index":"cirz4","./components/result-el/index":"7ICAO","./components/score-el/index":"dKDif"}],"arf04":[function(require,module,exports,__globalThis) {
+},{"./components/hand-el/index":"arf04","./components/text-el/index":"iQ3Yo","./components/button-el/index":"38ban","./router":"4wVP1","./components/counter-el/index":"cirz4","./components/result-el/index":"7ICAO","./components/score-el/index":"dKDif","./state.js":"dWXvP"}],"arf04":[function(require,module,exports,__globalThis) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "Hand", ()=>Hand);
-var _tijeraSvg = require("../../pictures/tijera.svg");
-var _tijeraSvgDefault = parcelHelpers.interopDefault(_tijeraSvg);
-var _piedraPng = require("../../../public/piedra.png");
-var _piedraPngDefault = parcelHelpers.interopDefault(_piedraPng);
-var _papelPng = require("../../../public/papel.png");
-var _papelPngDefault = parcelHelpers.interopDefault(_papelPng);
+const hands = {
+    tijeras: require("1ec0978adc04f401"),
+    piedra: require("d50040730e891f0"),
+    papel: require("60241a7cc1f05802")
+};
 class Hand extends HTMLElement {
     shadow = this.attachShadow({
         mode: "open"
     });
     variant = "";
     estilo = "";
-    objetoPpt = {
-        piedra: (0, _piedraPngDefault.default),
-        papel: (0, _papelPngDefault.default),
-        tijeras: (0, _tijeraSvgDefault.default)
-    };
     constructor(){
         super();
         const attrVariant = this.getAttribute("variant");
-        if (!attrVariant || !(attrVariant in this.objetoPpt)) {
-            console.error("Error: no se ingres\xf3 una variante v\xe1lida");
-            return;
-        }
         this.variant = attrVariant;
         const attrEstilo = this.getAttribute("estilo");
         this.estilo = attrEstilo ?? "";
     }
     connectedCallback() {
         this.render();
-        this.setupListeners();
+        const imgEl = this.shadow.querySelector(`#${this.variant}`);
+        if (this.estilo !== "computer") imgEl?.addEventListener("click", this.onClick);
+        document.addEventListener("computermove", this.onComputerMove);
     }
     disconnectedCallback() {
         const imgEl = this.shadow.querySelector(`#${this.variant}`);
         imgEl?.removeEventListener("click", this.onClick);
-    }
-    setupListeners() {
-        const imgEl = this.shadow.querySelector(`#${this.variant}`);
-        imgEl?.addEventListener("click", this.onClick);
+        this.removeEventListener("computermove", this.onComputerMove);
     }
     onClick = (e)=>{
         e.preventDefault();
-        const imgEl = this.shadow.querySelector(`#${this.variant}`);
-        imgEl?.classList.add("selected");
         this.dispatchEvent(new CustomEvent("handselected", {
             detail: {
                 id: this.variant,
@@ -736,19 +723,31 @@ class Hand extends HTMLElement {
             composed: true
         }));
     };
+    onComputerMove = (e)=>{
+        const imgEl = this.shadow.querySelector(`#${this.variant}`);
+        const t = e.detail;
+        if (this.estilo === "computer" && this.variant === t.id) {
+            console.log(this.variant, t.id);
+            imgEl?.classList.add("show");
+        }
+    };
     render() {
-        const imgSrc = this.objetoPpt[this.variant];
         this.shadow.innerHTML = `
       <style>
         .container {
-          position: relative;
+          max-width:375px;;
         }
 
-        *{
+        .hand{
           width: 104px;
           height: 230px;
           position: relative;
-          bottom: -20px;
+          bottom: -5px;
+        }
+        
+        .hand:hover{
+        opacity:50%;
+        height: 200px;
         }
 
         .mini {
@@ -757,32 +756,31 @@ class Hand extends HTMLElement {
         }
 
         .game {
-          bottom: 20px;
+          bottom: 0px;
         }
-
-        .unselected {
-          bottom: -20px;
-          opacity: 50%;
-        }
-
-        .big {
-          width: 159px;
-          height: 356px;
-          bottom: -60px;
-        }
-
-        .big.computer {
-          top: -60px;
+        
+        .computer {
           transform: rotate(180deg);
+          position:relative;
+          top:-30px;
+          display:none;
         }
+        .computer.show{
+          display:block
+          }
+
+        .computer:hover{
+          opacity:100%;
+        }
+
       </style>
 
       <div class="container">
         <img
-          src="${imgSrc}"
+          src="${hands[this.variant]}"
           alt="${this.variant}"
           id="${this.variant}"
-          class="${this.estilo}"
+          class="hand ${this.estilo}"
         />
       </div>
     `;
@@ -790,7 +788,7 @@ class Hand extends HTMLElement {
 }
 customElements.define("hand-component", Hand);
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT","../../pictures/tijera.svg":"d58h6","../../../public/piedra.png":"laoHV","../../../public/papel.png":"1ya5m"}],"jnFvT":[function(require,module,exports,__globalThis) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT","1ec0978adc04f401":"alBss","d50040730e891f0":"9cWqt","60241a7cc1f05802":"34ZZL"}],"jnFvT":[function(require,module,exports,__globalThis) {
 exports.interopDefault = function(a) {
     return a && a.__esModule ? a : {
         default: a
@@ -820,7 +818,16 @@ exports.export = function(dest, destName, get) {
     });
 };
 
-},{}],"d58h6":[function() {},{}],"laoHV":[function() {},{}],"1ya5m":[function() {},{}],"iQ3Yo":[function(require,module,exports,__globalThis) {
+},{}],"alBss":[function(require,module,exports,__globalThis) {
+module.exports = module.bundle.resolve("tijera.cc4eff87.svg") + "?" + Date.now();
+
+},{}],"9cWqt":[function(require,module,exports,__globalThis) {
+module.exports = module.bundle.resolve("piedra.5e886692.png") + "?" + Date.now();
+
+},{}],"34ZZL":[function(require,module,exports,__globalThis) {
+module.exports = module.bundle.resolve("papel.5c0a4769.png") + "?" + Date.now();
+
+},{}],"iQ3Yo":[function(require,module,exports,__globalThis) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "Text", ()=>Text);
@@ -1012,6 +1019,7 @@ function initHomePage(goTo) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "initStartPage", ()=>initStartPage);
+var _stateJs = require("../../state.js");
 function initStartPage(goTo) {
     const homePage = document.createElement("div");
     homePage.innerHTML = `
@@ -1030,60 +1038,14 @@ y eleg\xed: piedra, papel o tijera antes de que pasen los 3 segundos.</my-text>
         const startButtonEl = document.querySelector("#play-btn");
         startButtonEl?.addEventListener("click", (e)=>{
             e.preventDefault();
+            (0, _stateJs.state).resetGame();
             goTo.goTo("/game");
         });
     });
     return homePage;
 }
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}],"lITg0":[function(require,module,exports,__globalThis) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "initGamePage", ()=>initGamePage);
-var _state = require("../../state");
-const opciones = [
-    "piedra",
-    "papel",
-    "tijeras"
-];
-function initGamePage(goTo) {
-    var handSelected = false;
-    const computermove = opciones[Math.floor(Math.random() * opciones.length)];
-    const homePage = document.createElement("div");
-    homePage.innerHTML = `
-    <div class="gamepage__container">
-      <my-counter startCounter="5"></my-counter>
-      <div class="gamepage__hands-container">
-        <hand-component variant="tijeras" estilo="game" img="../../../public/piedra.png"></hand-component>
-        <hand-component variant="piedra" estilo="game" img="/public/papel.png"></hand-component>
-        <hand-component variant="papel" estilo="game" img="/public/tijera.png"></hand-component>
-      </div>
-    </div>
-  `;
-    requestAnimationFrame(()=>{
-        homePage.addEventListener("timeout", ()=>{
-            console.log("Tiempo terminado");
-            if (handSelected == false) {
-                const usermove = opciones[Math.floor(Math.random() * opciones.length)];
-                (0, _state.state).setPlay(usermove, computermove);
-                const csHistory = (0, _state.state).getHistory();
-                if (csHistory.length < 3) goTo.goTo("/game");
-                else goTo.goTo("/results");
-            }
-        });
-        homePage.addEventListener("handselected", (e)=>{
-            const t = e.detail;
-            handSelected = true;
-            (0, _state.state).setPlay(t.id, computermove);
-            const csHistory = (0, _state.state).getHistory();
-            if (csHistory.length < 3) goTo.goTo("/game");
-            else goTo.goTo("/results");
-        });
-    });
-    return homePage;
-}
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT","../../state":"dWXvP"}],"dWXvP":[function(require,module,exports,__globalThis) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT","../../state.js":"dWXvP"}],"dWXvP":[function(require,module,exports,__globalThis) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "state", ()=>state);
@@ -1094,6 +1056,9 @@ const state = {
     },
     history: [],
     listeners: [],
+    init () {
+        this.syncWithLocalStorage();
+    },
     getState () {
         return this.data;
     },
@@ -1102,12 +1067,10 @@ const state = {
     },
     setState (newState) {
         this.data = newState;
-        console.log("setState newstate", newState);
         this.history.push({
             ...newState
         });
         for (const cb of this.listeners)cb;
-        console.log("setstate history", this.getHistory());
         localStorage.setItem("state", JSON.stringify(newState));
         localStorage.setItem("history", JSON.stringify(this.history));
     },
@@ -1116,8 +1079,6 @@ const state = {
     },
     setPlay (usermove, computermove) {
         const cs = this.getState();
-        // console.log("cs setplay", cs);
-        // console.log("setplay", usermove, computermove);
         cs.userPlay = usermove;
         cs.computerPlay = computermove;
         this.setState(cs);
@@ -1148,10 +1109,80 @@ const state = {
         this.history = [];
         localStorage.removeItem("state");
         localStorage.removeItem("history");
+    },
+    syncWithLocalStorage () {
+        const storageState = localStorage.getItem("state");
+        const historyState = localStorage.getItem("history");
+        if (storageState) this.data = JSON.parse(storageState);
+        if (historyState) this.history = JSON.parse(historyState);
     }
 };
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}],"5wNxj":[function(require,module,exports,__globalThis) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}],"lITg0":[function(require,module,exports,__globalThis) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "initGamePage", ()=>initGamePage);
+var _state = require("../../state");
+const opciones = [
+    "piedra",
+    "papel",
+    "tijeras"
+];
+function initGamePage(goTo) {
+    var handSelected = false;
+    const computermove = opciones[Math.floor(Math.random() * opciones.length)];
+    const homePage = document.createElement("div");
+    homePage.innerHTML = `
+    <div class="gamepage__container">
+    <div class="gamepage__chands-container">
+      <hand-component variant="tijeras" estilo="computer"></hand-component>
+      <hand-component variant="piedra" estilo="computer"></hand-component>
+      <hand-component variant="papel" estilo="computer"></hand-component>
+    </div>
+    <my-counter startCounter="5"></my-counter>
+    <div class="gamepage__uhands-container">
+      <hand-component variant="tijeras" estilo="game""></hand-component>
+      <hand-component variant="piedra" estilo="game""></hand-component>
+      <hand-component variant="papel" estilo="game"></hand-component>
+    </div>
+    </div>
+  `;
+    requestAnimationFrame(()=>{
+        homePage.addEventListener("timeout", ()=>{
+            console.log("Tiempo terminado");
+            if (handSelected == false) {
+                const usermove = opciones[Math.floor(Math.random() * opciones.length)];
+                (0, _state.state).setPlay(usermove, computermove);
+                const csHistory = (0, _state.state).getHistory();
+                if (csHistory.length < 3) goTo.goTo("/game");
+                else goTo.goTo("/results");
+            }
+        });
+        homePage.addEventListener("handselected", (e)=>{
+            const t = e.detail;
+            handSelected = true;
+            homePage.dispatchEvent(new CustomEvent("computermove", {
+                detail: {
+                    id: computermove,
+                    description: "computer move"
+                },
+                bubbles: true,
+                composed: true
+            }));
+            (0, _state.state).setPlay(t.id, computermove);
+            const csHistory = (0, _state.state).getHistory();
+            if (csHistory.length < 3) setTimeout(()=>{
+                goTo.goTo("/game");
+            }, 1000);
+            else setTimeout(()=>{
+                goTo.goTo("/results");
+            }, 1000);
+        });
+    });
+    return homePage;
+}
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT","../../state":"dWXvP"}],"5wNxj":[function(require,module,exports,__globalThis) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "initResultsPage", ()=>initResultsPage);
@@ -1174,7 +1205,7 @@ function initResultsPage(goTo) {
         const resetButtonEl = document.querySelector("#reset-btn");
         resetButtonEl?.addEventListener("click", (e)=>{
             e.preventDefault();
-            (0, _state.state).resetGame();
+            // state.resetGame();
             goTo.goTo("/start");
         });
     });
@@ -1206,8 +1237,8 @@ class Counter extends HTMLElement {
         this.shadow.innerHTML = `
       <style>
         .circle {
-          width: 250px;
-          height: 250px;
+          width: 200px;
+          height: 200px;
           border-radius: 50%;
           background-color: transparent;
           border: 20px solid black;
@@ -1362,6 +1393,6 @@ class Score extends HTMLElement {
 }
 customElements.define("my-score", Score);
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}]},["3dtlh","gH3Lb"], "gH3Lb", "parcelRequire230e", {})
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}]},["3dtlh","gH3Lb"], "gH3Lb", "parcelRequire230e", {}, "./", "/")
 
 //# sourceMappingURL=desafio-juego.34df32e0.js.map

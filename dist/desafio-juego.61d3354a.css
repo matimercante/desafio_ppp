@@ -3,9 +3,10 @@
 }
 
 html, body {
-  background-image: url("background.8c90c9e2.png");
+  background-image: url("background.f692c971.png");
   background-size: 35%;
+  max-width: 375px;
   height: 100vh;
-  margin: 0;
+  margin: 0 auto;
 }
 /*# sourceMappingURL=desafio-juego.61d3354a.css.map */

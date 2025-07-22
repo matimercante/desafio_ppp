@@ -10,7 +10,5 @@
 .homepage__hands-container {
   display: flex;
   justify-content: space-around;
-  height: 100px;
-  background-color: yellow;
   overflow: hidden;
 }

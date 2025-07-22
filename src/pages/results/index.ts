@@ -23,7 +23,7 @@ export function initResultsPage(goTo) {
     const resetButtonEl = document.querySelector("#reset-btn");
     resetButtonEl?.addEventListener("click", (e) => {
       e.preventDefault();
-      state.resetGame();
+      // state.resetGame();
       goTo.goTo("/start");
     });
   });
