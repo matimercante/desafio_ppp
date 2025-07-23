@@ -3,7 +3,7 @@
   "source": "src/index.html",
   "scripts": {
     "dev": "parcel",
-    "build": "parcel build --public-url ",
+    "build": "parcel build --dist-dir build --public-url /ppp",
     "deploy": "gh-pages -d build"
   },
   "devDependencies": {
@@ -11,5 +11,8 @@
     "@types/node": "^24.0.10",
     "parcel": "latest",
     "vite": "^7.0.4"
+  },
+  "dependencies": {
+    "gh-pages": "^6.3.0"
   }
 }

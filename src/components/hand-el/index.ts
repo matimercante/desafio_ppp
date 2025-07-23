@@ -82,7 +82,6 @@ export class Hand extends HTMLElement {
         
         .hand:hover{
         opacity:50%;
-        height: 200px;
         }
 
         .mini {
