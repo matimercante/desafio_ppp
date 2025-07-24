@@ -7,25 +7,25 @@ const BASE_PATH = "/piedra_papel_tijeras";
 
 const routes = [
   {
-    path: /\/home/,
+    path: /\/piedra_papel_tijeras\/home/,
     handler: initHomePage,
   },
   {
-    path: /\/start/,
+    path: /\/piedra_papel_tijeras\/start/,
     handler: initStartPage,
   },
   {
-    path: /\/game/,
+    path: /\/piedra_papel_tijeras\/game/,
     handler: initGamePage,
   },
   {
-    path: /\/results/,
+    path: /\/piedra_papel_tijeras\/results/,
     handler: initResultsPage,
   },
 ];
 
 function isGitHubPages() {
-  return location.host.includes("github.io");
+  return location.host.includes("matimercante.github.io");
 }
 
 export function initRouter(container) {
@@ -51,8 +51,4 @@ export function initRouter(container) {
   } else {
     handleRouter(path);
   }
-
-  window.onpopstate = function () {
-    handleRouter(location.pathname);
-  };
 }
