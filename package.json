@@ -3,7 +3,7 @@
   "source": "src/index.html",
   "scripts": {
     "dev": "parcel",
-    "build": "parcel build --dist-dir build --public-url /ppp",
+    "build": "parcel build --dist-dir build --public-url /piedra_papel_tijeras",
     "deploy": "gh-pages -d build"
   },
   "devDependencies": {
