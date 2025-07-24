@@ -7,6 +7,8 @@ import "./components/score-el/index";
 import { initRouter } from "./router";
 import { state } from "./state.js";
 
-state.init();
-const containerEl = document.querySelector(".root");
-containerEl ? initRouter(containerEl) : "";
+(function () {
+  state.init();
+  const containerEl = document.querySelector(".root");
+  containerEl ? initRouter(containerEl) : "";
+})();

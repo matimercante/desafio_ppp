@@ -160,7 +160,7 @@
       });
     }
   }
-})({"3dtlh":[function(require,module,exports,__globalThis) {
+})({"3pxc5":[function(require,module,exports,__globalThis) {
 var global = arguments[3];
 var HMR_HOST = null;
 var HMR_PORT = null;
@@ -679,7 +679,7 @@ var _stateJs = require("./state.js");
 const containerEl = document.querySelector(".root");
 containerEl && (0, _router.initRouter)(containerEl);
 
-},{"./components/hand-el/index":"arf04","./components/text-el/index":"iQ3Yo","./components/button-el/index":"38ban","./router":"4wVP1","./components/counter-el/index":"cirz4","./components/result-el/index":"7ICAO","./components/score-el/index":"dKDif","./state.js":"dWXvP"}],"arf04":[function(require,module,exports,__globalThis) {
+},{"./components/hand-el/index":"arf04","./components/text-el/index":"iQ3Yo","./components/button-el/index":"38ban","./components/counter-el/index":"cirz4","./components/result-el/index":"7ICAO","./components/score-el/index":"dKDif","./router":"4wVP1","./state.js":"dWXvP"}],"arf04":[function(require,module,exports,__globalThis) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "Hand", ()=>Hand);
@@ -747,7 +747,6 @@ class Hand extends HTMLElement {
         
         .hand:hover{
         opacity:50%;
-        height: 200px;
         }
 
         .mini {
@@ -788,7 +787,16 @@ class Hand extends HTMLElement {
 }
 customElements.define("hand-component", Hand);
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT","1ec0978adc04f401":"alBss","d50040730e891f0":"9cWqt","60241a7cc1f05802":"34ZZL"}],"jnFvT":[function(require,module,exports,__globalThis) {
+},{"1ec0978adc04f401":"alBss","d50040730e891f0":"9cWqt","60241a7cc1f05802":"34ZZL","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}],"alBss":[function(require,module,exports,__globalThis) {
+module.exports = module.bundle.resolve("tijera.cc4eff87.svg") + "?" + Date.now();
+
+},{}],"9cWqt":[function(require,module,exports,__globalThis) {
+module.exports = module.bundle.resolve("piedra.5e886692.png") + "?" + Date.now();
+
+},{}],"34ZZL":[function(require,module,exports,__globalThis) {
+module.exports = module.bundle.resolve("papel.5c0a4769.png") + "?" + Date.now();
+
+},{}],"jnFvT":[function(require,module,exports,__globalThis) {
 exports.interopDefault = function(a) {
     return a && a.__esModule ? a : {
         default: a
@@ -817,15 +825,6 @@ exports.export = function(dest, destName, get) {
         get: get
     });
 };
-
-},{}],"alBss":[function(require,module,exports,__globalThis) {
-module.exports = module.bundle.resolve("tijera.cc4eff87.svg") + "?" + Date.now();
-
-},{}],"9cWqt":[function(require,module,exports,__globalThis) {
-module.exports = module.bundle.resolve("piedra.5e886692.png") + "?" + Date.now();
-
-},{}],"34ZZL":[function(require,module,exports,__globalThis) {
-module.exports = module.bundle.resolve("papel.5c0a4769.png") + "?" + Date.now();
 
 },{}],"iQ3Yo":[function(require,module,exports,__globalThis) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
@@ -942,277 +941,7 @@ class Button extends HTMLElement {
 }
 customElements.define("my-button", Button);
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}],"4wVP1":[function(require,module,exports,__globalThis) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "initRouter", ()=>initRouter);
-var _home = require("./pages/home");
-var _start = require("./pages/start");
-var _game = require("./pages/game");
-var _results = require("./pages/results");
-const routes = [
-    {
-        path: /\/home/,
-        handler: (0, _home.initHomePage)
-    },
-    {
-        path: /\/start/,
-        handler: (0, _start.initStartPage)
-    },
-    {
-        path: /\/game/,
-        handler: (0, _game.initGamePage)
-    },
-    {
-        path: /\/results/,
-        handler: (0, _results.initResultsPage)
-    }
-];
-function initRouter(container) {
-    // console.log(container.innerHTML);
-    function goTo(path) {
-        history.pushState({}, "", path);
-        handleRouter(path);
-    }
-    function handleRouter(route) {
-        for (const r of routes)if (r.path.test(route)) {
-            const page = r.handler({
-                goTo: goTo
-            });
-            container.firstChild && container.firstChild.remove();
-            container.appendChild(page);
-        }
-    }
-    const path = location.pathname;
-    if (path == "/") handleRouter("/home");
-    else handleRouter(path);
-}
-
-},{"./pages/home":"hcj4R","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT","./pages/start":"3qBkg","./pages/game":"lITg0","./pages/results":"5wNxj"}],"hcj4R":[function(require,module,exports,__globalThis) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "initHomePage", ()=>initHomePage);
-function initHomePage(goTo) {
-    const homePage = document.createElement("div");
-    homePage.innerHTML = `
-    <div class="homepage__container">
-      <my-text variant="large" color="#009048">Piedra Papel <span style="opacity:50%">\xf3</span> Tijeras</my-text>
-      <my-button id="start-btn">Empezar</my-button>
-      <div class="homepage__hands-container">
-        <hand-component variant="tijeras" estilo="mini"></hand-component>
-        <hand-component variant="piedra" estilo="mini"></hand-component>
-        <hand-component variant="papel" estilo="mini"></hand-component>
-      </div>
-    </div>
-  `;
-    requestAnimationFrame(()=>{
-        const startButtonEl = document.querySelector("#start-btn");
-        startButtonEl?.addEventListener("click", (e)=>{
-            e.preventDefault();
-            goTo.goTo("/start");
-        });
-    });
-    return homePage;
-}
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}],"3qBkg":[function(require,module,exports,__globalThis) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "initStartPage", ()=>initStartPage);
-var _stateJs = require("../../state.js");
-function initStartPage(goTo) {
-    const homePage = document.createElement("div");
-    homePage.innerHTML = `
-    <div class="startpage__container">
-      <my-text variant="start" color="#000000">Presion\xe1 jugar
-y eleg\xed: piedra, papel o tijera antes de que pasen los 3 segundos.</my-text>
-      <my-button id="play-btn">Jugar</my-button>
-      <div class="homepage__hands-container">
-        <hand-component variant="tijeras" estilo="mini"></hand-component>
-        <hand-component variant="piedra" estilo="mini"></hand-component>
-        <hand-component variant="papel" estilo="mini"></hand-component>
-      </div>
-    </div>
-  `;
-    requestAnimationFrame(()=>{
-        const startButtonEl = document.querySelector("#play-btn");
-        startButtonEl?.addEventListener("click", (e)=>{
-            e.preventDefault();
-            (0, _stateJs.state).resetGame();
-            goTo.goTo("/game");
-        });
-    });
-    return homePage;
-}
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT","../../state.js":"dWXvP"}],"dWXvP":[function(require,module,exports,__globalThis) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "state", ()=>state);
-const state = {
-    data: {
-        userPlay: "",
-        computerPlay: ""
-    },
-    history: [],
-    listeners: [],
-    init () {
-        this.syncWithLocalStorage();
-    },
-    getState () {
-        return this.data;
-    },
-    getHistory () {
-        return this.history;
-    },
-    setState (newState) {
-        this.data = newState;
-        this.history.push({
-            ...newState
-        });
-        for (const cb of this.listeners)cb;
-        localStorage.setItem("state", JSON.stringify(newState));
-        localStorage.setItem("history", JSON.stringify(this.history));
-    },
-    subscribe (cb) {
-        this.listeners.push(cb);
-    },
-    setPlay (usermove, computermove) {
-        const cs = this.getState();
-        cs.userPlay = usermove;
-        cs.computerPlay = computermove;
-        this.setState(cs);
-    },
-    getScore () {
-        const ch = this.history;
-        let userPoints = 0, computerPoints = 0;
-        ch.forEach((game)=>{
-            const uPlay = game.userPlay;
-            const cPlay = game.computerPlay;
-            if (uPlay == cPlay) {
-                userPoints++;
-                computerPoints++;
-            } else if (uPlay == "papel" && cPlay == "tijeras" || uPlay == "tijeras" && cPlay == "piedra" || uPlay == "piedra" && cPlay == "papel") computerPoints++;
-            else if (cPlay == "papel" && uPlay == "tijeras" || cPlay == "tijeras" && uPlay == "piedra" || cPlay == "piedra" && uPlay == "papel") userPoints++;
-        });
-        if (userPoints > computerPoints) console.log("ganaste");
-        else if (userPoints == computerPoints) console.log("empate");
-        else console.log("gan\xf3 la computadora");
-        return {
-            userPoints,
-            computerPoints
-        };
-    },
-    resetGame () {
-        this.data.userPlay = "";
-        this.data.computerPlay = "";
-        this.history = [];
-        localStorage.removeItem("state");
-        localStorage.removeItem("history");
-    },
-    syncWithLocalStorage () {
-        const storageState = localStorage.getItem("state");
-        const historyState = localStorage.getItem("history");
-        if (storageState) this.data = JSON.parse(storageState);
-        if (historyState) this.history = JSON.parse(historyState);
-    }
-};
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}],"lITg0":[function(require,module,exports,__globalThis) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "initGamePage", ()=>initGamePage);
-var _state = require("../../state");
-const opciones = [
-    "piedra",
-    "papel",
-    "tijeras"
-];
-function initGamePage(goTo) {
-    var handSelected = false;
-    const computermove = opciones[Math.floor(Math.random() * opciones.length)];
-    const homePage = document.createElement("div");
-    homePage.innerHTML = `
-    <div class="gamepage__container">
-    <div class="gamepage__chands-container">
-      <hand-component variant="tijeras" estilo="computer"></hand-component>
-      <hand-component variant="piedra" estilo="computer"></hand-component>
-      <hand-component variant="papel" estilo="computer"></hand-component>
-    </div>
-    <my-counter startCounter="5"></my-counter>
-    <div class="gamepage__uhands-container">
-      <hand-component variant="tijeras" estilo="game""></hand-component>
-      <hand-component variant="piedra" estilo="game""></hand-component>
-      <hand-component variant="papel" estilo="game"></hand-component>
-    </div>
-    </div>
-  `;
-    requestAnimationFrame(()=>{
-        homePage.addEventListener("timeout", ()=>{
-            console.log("Tiempo terminado");
-            if (handSelected == false) {
-                const usermove = opciones[Math.floor(Math.random() * opciones.length)];
-                (0, _state.state).setPlay(usermove, computermove);
-                const csHistory = (0, _state.state).getHistory();
-                if (csHistory.length < 3) goTo.goTo("/game");
-                else goTo.goTo("/results");
-            }
-        });
-        homePage.addEventListener("handselected", (e)=>{
-            const t = e.detail;
-            handSelected = true;
-            homePage.dispatchEvent(new CustomEvent("computermove", {
-                detail: {
-                    id: computermove,
-                    description: "computer move"
-                },
-                bubbles: true,
-                composed: true
-            }));
-            (0, _state.state).setPlay(t.id, computermove);
-            const csHistory = (0, _state.state).getHistory();
-            if (csHistory.length < 3) setTimeout(()=>{
-                goTo.goTo("/game");
-            }, 1000);
-            else setTimeout(()=>{
-                goTo.goTo("/results");
-            }, 1000);
-        });
-    });
-    return homePage;
-}
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT","../../state":"dWXvP"}],"5wNxj":[function(require,module,exports,__globalThis) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "initResultsPage", ()=>initResultsPage);
-var _state = require("../../state");
-function initResultsPage(goTo) {
-    var result = "";
-    const score = (0, _state.state).getScore();
-    if (score.userPoints > score.computerPoints) result = "Ganaste";
-    else if (score.userPoints == score.computerPoints) result = "Empate";
-    else result = "Perdiste";
-    const homePage = document.createElement("div");
-    homePage.innerHTML = `
-    <div class="resultspage__container">
-      <my-result variant=${result}></my-result>
-      <my-score uscore="${score.userPoints}" cscore="${score.computerPoints}"></my-score>
-      <my-button id="reset-btn">Volver a Jugar</my-button>
-    </div>
-  `;
-    requestAnimationFrame(()=>{
-        const resetButtonEl = document.querySelector("#reset-btn");
-        resetButtonEl?.addEventListener("click", (e)=>{
-            e.preventDefault();
-            // state.resetGame();
-            goTo.goTo("/start");
-        });
-    });
-    return homePage;
-}
-
-},{"../../state":"dWXvP","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}],"cirz4":[function(require,module,exports,__globalThis) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}],"cirz4":[function(require,module,exports,__globalThis) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "Counter", ()=>Counter);
@@ -1393,6 +1122,276 @@ class Score extends HTMLElement {
 }
 customElements.define("my-score", Score);
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}]},["3dtlh","gH3Lb"], "gH3Lb", "parcelRequire230e", {}, "./", "/")
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}],"4wVP1":[function(require,module,exports,__globalThis) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "initRouter", ()=>initRouter);
+var _home = require("./pages/home");
+var _start = require("./pages/start");
+var _game = require("./pages/game");
+var _results = require("./pages/results");
+const routes = [
+    {
+        path: /\/home/,
+        handler: (0, _home.initHomePage)
+    },
+    {
+        path: /\/start/,
+        handler: (0, _start.initStartPage)
+    },
+    {
+        path: /\/game/,
+        handler: (0, _game.initGamePage)
+    },
+    {
+        path: /\/results/,
+        handler: (0, _results.initResultsPage)
+    }
+];
+function initRouter(container) {
+    // console.log(container.innerHTML);
+    function goTo(path) {
+        history.pushState({}, "", path);
+        handleRouter(path);
+    }
+    function handleRouter(route) {
+        for (const r of routes)if (r.path.test(route)) {
+            const page = r.handler({
+                goTo: goTo
+            });
+            container.firstChild && container.firstChild.remove();
+            container.appendChild(page);
+        }
+    }
+    const path = location.pathname;
+    if (path == "/") handleRouter("/home");
+    else handleRouter(path);
+}
+
+},{"./pages/home":"hcj4R","./pages/start":"3qBkg","./pages/game":"lITg0","./pages/results":"5wNxj","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}],"hcj4R":[function(require,module,exports,__globalThis) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "initHomePage", ()=>initHomePage);
+function initHomePage(goTo) {
+    const homePage = document.createElement("div");
+    homePage.innerHTML = `
+    <div class="homepage__container">
+      <my-text variant="large" color="#009048">Piedra Papel <span style="opacity:50%">\xf3</span> Tijeras</my-text>
+      <my-button id="start-btn">Empezar</my-button>
+      <div class="homepage__hands-container">
+        <hand-component variant="tijeras" estilo="mini"></hand-component>
+        <hand-component variant="piedra" estilo="mini"></hand-component>
+        <hand-component variant="papel" estilo="mini"></hand-component>
+      </div>
+    </div>
+  `;
+    requestAnimationFrame(()=>{
+        const startButtonEl = document.querySelector("#start-btn");
+        startButtonEl?.addEventListener("click", (e)=>{
+            e.preventDefault();
+            goTo.goTo("/start");
+        });
+    });
+    return homePage;
+}
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}],"3qBkg":[function(require,module,exports,__globalThis) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "initStartPage", ()=>initStartPage);
+var _stateJs = require("../../state.js");
+function initStartPage(goTo) {
+    const homePage = document.createElement("div");
+    homePage.innerHTML = `
+    <div class="startpage__container">
+      <my-text variant="start" color="#000000">Presion\xe1 jugar
+y eleg\xed: piedra, papel o tijera antes de que pasen los 3 segundos.</my-text>
+      <my-button id="play-btn">Jugar</my-button>
+      <div class="homepage__hands-container">
+        <hand-component variant="tijeras" estilo="mini"></hand-component>
+        <hand-component variant="piedra" estilo="mini"></hand-component>
+        <hand-component variant="papel" estilo="mini"></hand-component>
+      </div>
+    </div>
+  `;
+    requestAnimationFrame(()=>{
+        const startButtonEl = document.querySelector("#play-btn");
+        startButtonEl?.addEventListener("click", (e)=>{
+            e.preventDefault();
+            (0, _stateJs.state).resetGame();
+            goTo.goTo("/game");
+        });
+    });
+    return homePage;
+}
+
+},{"../../state.js":"dWXvP","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}],"dWXvP":[function(require,module,exports,__globalThis) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "state", ()=>state);
+const state = {
+    data: {
+        userPlay: "",
+        computerPlay: ""
+    },
+    history: [],
+    listeners: [],
+    init () {
+        this.syncWithLocalStorage();
+    },
+    getState () {
+        return this.data;
+    },
+    getHistory () {
+        return this.history;
+    },
+    setState (newState) {
+        this.data = newState;
+        this.history.push({
+            ...newState
+        });
+        for (const cb of this.listeners)cb;
+        localStorage.setItem("state", JSON.stringify(newState));
+        localStorage.setItem("history", JSON.stringify(this.history));
+    },
+    subscribe (cb) {
+        this.listeners.push(cb);
+    },
+    setPlay (usermove, computermove) {
+        const cs = this.getState();
+        cs.userPlay = usermove;
+        cs.computerPlay = computermove;
+        this.setState(cs);
+    },
+    getScore () {
+        const ch = this.history;
+        let userPoints = 0, computerPoints = 0;
+        ch.forEach((game)=>{
+            const uPlay = game.userPlay;
+            const cPlay = game.computerPlay;
+            if (uPlay == cPlay) {
+                userPoints++;
+                computerPoints++;
+            } else if (uPlay == "papel" && cPlay == "tijeras" || uPlay == "tijeras" && cPlay == "piedra" || uPlay == "piedra" && cPlay == "papel") computerPoints++;
+            else if (cPlay == "papel" && uPlay == "tijeras" || cPlay == "tijeras" && uPlay == "piedra" || cPlay == "piedra" && uPlay == "papel") userPoints++;
+        });
+        if (userPoints > computerPoints) console.log("ganaste");
+        else if (userPoints == computerPoints) console.log("empate");
+        else console.log("gan\xf3 la computadora");
+        return {
+            userPoints,
+            computerPoints
+        };
+    },
+    resetGame () {
+        this.data.userPlay = "";
+        this.data.computerPlay = "";
+        this.history = [];
+        localStorage.removeItem("state");
+        localStorage.removeItem("history");
+    },
+    syncWithLocalStorage () {
+        const storageState = localStorage.getItem("state");
+        const historyState = localStorage.getItem("history");
+        if (storageState) this.data = JSON.parse(storageState);
+        if (historyState) this.history = JSON.parse(historyState);
+    }
+};
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}],"lITg0":[function(require,module,exports,__globalThis) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "initGamePage", ()=>initGamePage);
+var _state = require("../../state");
+const opciones = [
+    "piedra",
+    "papel",
+    "tijeras"
+];
+function initGamePage(goTo) {
+    var handSelected = false;
+    const computermove = opciones[Math.floor(Math.random() * opciones.length)];
+    const homePage = document.createElement("div");
+    homePage.innerHTML = `
+    <div class="gamepage__container">
+    <div class="gamepage__chands-container">
+      <hand-component variant="tijeras" estilo="computer"></hand-component>
+      <hand-component variant="piedra" estilo="computer"></hand-component>
+      <hand-component variant="papel" estilo="computer"></hand-component>
+    </div>
+    <my-counter startCounter="5"></my-counter>
+    <div class="gamepage__uhands-container">
+      <hand-component variant="tijeras" estilo="game""></hand-component>
+      <hand-component variant="piedra" estilo="game""></hand-component>
+      <hand-component variant="papel" estilo="game"></hand-component>
+    </div>
+    </div>
+  `;
+    requestAnimationFrame(()=>{
+        homePage.addEventListener("timeout", ()=>{
+            console.log("Tiempo terminado");
+            if (handSelected == false) {
+                const usermove = opciones[Math.floor(Math.random() * opciones.length)];
+                (0, _state.state).setPlay(usermove, computermove);
+                const csHistory = (0, _state.state).getHistory();
+                if (csHistory.length < 3) goTo.goTo("/game");
+                else goTo.goTo("/results");
+            }
+        });
+        homePage.addEventListener("handselected", (e)=>{
+            const t = e.detail;
+            handSelected = true;
+            homePage.dispatchEvent(new CustomEvent("computermove", {
+                detail: {
+                    id: computermove,
+                    description: "computer move"
+                },
+                bubbles: true,
+                composed: true
+            }));
+            (0, _state.state).setPlay(t.id, computermove);
+            const csHistory = (0, _state.state).getHistory();
+            if (csHistory.length < 3) setTimeout(()=>{
+                goTo.goTo("/game");
+            }, 1000);
+            else setTimeout(()=>{
+                goTo.goTo("/results");
+            }, 1000);
+        });
+    });
+    return homePage;
+}
+
+},{"../../state":"dWXvP","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}],"5wNxj":[function(require,module,exports,__globalThis) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "initResultsPage", ()=>initResultsPage);
+var _state = require("../../state");
+function initResultsPage(goTo) {
+    var result = "";
+    const score = (0, _state.state).getScore();
+    if (score.userPoints > score.computerPoints) result = "Ganaste";
+    else if (score.userPoints == score.computerPoints) result = "Empate";
+    else result = "Perdiste";
+    const homePage = document.createElement("div");
+    homePage.innerHTML = `
+    <div class="resultspage__container">
+      <my-result variant=${result}></my-result>
+      <my-score uscore="${score.userPoints}" cscore="${score.computerPoints}"></my-score>
+      <my-button id="reset-btn">Volver a Jugar</my-button>
+    </div>
+  `;
+    requestAnimationFrame(()=>{
+        const resetButtonEl = document.querySelector("#reset-btn");
+        resetButtonEl?.addEventListener("click", (e)=>{
+            e.preventDefault();
+            // state.resetGame();
+            goTo.goTo("/start");
+        });
+    });
+    return homePage;
+}
+
+},{"../../state":"dWXvP","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}]},["3pxc5","gH3Lb"], "gH3Lb", "parcelRequire230e", {}, "./", "/")
 
 //# sourceMappingURL=desafio-juego.34df32e0.js.map

@@ -3,6 +3,8 @@ import { initStartPage } from "./pages/start";
 import { initGamePage } from "./pages/game";
 import { initResultsPage } from "./pages/results";
 
+const BASE_PATH = "/piedra_papel_tijeras";
+
 const routes = [
   {
     path: /\/home/,
@@ -22,17 +24,21 @@ const routes = [
   },
 ];
 
-export function initRouter(container) {
-  // console.log(container.innerHTML);
+function isGitHubPages() {
+  return location.host.includes("github.io");
+}
 
+export function initRouter(container) {
   function goTo(path) {
-    history.pushState({}, "", path);
-    handleRouter(path);
+    const completePath = isGitHubPages() ? BASE_PATH + path : path;
+    history.pushState({}, "", completePath);
+    handleRouter(completePath);
   }
 
   function handleRouter(route) {
+    const newRoute = isGitHubPages() ? BASE_PATH + route : route;
     for (const r of routes) {
-      if (r.path.test(route)) {
+      if (r.path.test(newRoute)) {
         const page = r.handler({ goTo: goTo });
         container.firstChild ? container.firstChild.remove() : "";
         container.appendChild(page);
@@ -45,4 +51,8 @@ export function initRouter(container) {
   } else {
     handleRouter(path);
   }
+
+  window.onpopstate = function () {
+    handleRouter(location.pathname);
+  };
 }
