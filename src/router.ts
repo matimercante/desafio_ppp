@@ -3,23 +3,24 @@ import { initStartPage } from "./pages/start";
 import { initGamePage } from "./pages/game";
 import { initResultsPage } from "./pages/results";
 
-const BASE_PATH = "/piedra_papel_tijeras";
+// const BASE_PATH = "/piedra_papel_tijeras";
+const BASE_PATH = "/ppp";
 
 const routes = [
   {
-    path: /\/piedra_papel_tijeras\/home/,
+    path: /\/home/,
     handler: initHomePage,
   },
   {
-    path: /\/piedra_papel_tijeras\/start/,
+    path: /\/start/,
     handler: initStartPage,
   },
   {
-    path: /\/piedra_papel_tijeras\/game/,
+    path: /\/game/,
     handler: initGamePage,
   },
   {
-    path: /\/piedra_papel_tijeras\/results/,
+    path: /\/results/,
     handler: initResultsPage,
   },
 ];
@@ -31,6 +32,7 @@ function isGitHubPages() {
 export function initRouter(container) {
   function goTo(path) {
     const completePath = isGitHubPages() ? BASE_PATH + path : path;
+
     history.pushState({}, "", completePath);
     handleRouter(completePath);
   }

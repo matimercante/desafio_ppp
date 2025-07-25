@@ -675,9 +675,11 @@ var _index4 = require("./components/result-el/index");
 var _index5 = require("./components/score-el/index");
 var _router = require("./router");
 var _stateJs = require("./state.js");
-(0, _stateJs.state).init();
-const containerEl = document.querySelector(".root");
-containerEl && (0, _router.initRouter)(containerEl);
+(function() {
+    (0, _stateJs.state).init();
+    const containerEl = document.querySelector(".root");
+    containerEl && (0, _router.initRouter)(containerEl);
+})();
 
 },{"./components/hand-el/index":"arf04","./components/text-el/index":"iQ3Yo","./components/button-el/index":"38ban","./components/counter-el/index":"cirz4","./components/result-el/index":"7ICAO","./components/score-el/index":"dKDif","./router":"4wVP1","./state.js":"dWXvP"}],"arf04":[function(require,module,exports,__globalThis) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
@@ -1130,6 +1132,8 @@ var _home = require("./pages/home");
 var _start = require("./pages/start");
 var _game = require("./pages/game");
 var _results = require("./pages/results");
+// const BASE_PATH = "/piedra_papel_tijeras";
+const BASE_PATH = "/ppp";
 const routes = [
     {
         path: /\/home/,
@@ -1148,14 +1152,18 @@ const routes = [
         handler: (0, _results.initResultsPage)
     }
 ];
+function isGitHubPages() {
+    return location.host.includes("matimercante.github.io");
+}
 function initRouter(container) {
-    // console.log(container.innerHTML);
     function goTo(path) {
-        history.pushState({}, "", path);
-        handleRouter(path);
+        const completePath = isGitHubPages() ? BASE_PATH + path : path;
+        history.pushState({}, "", completePath);
+        handleRouter(completePath);
     }
     function handleRouter(route) {
-        for (const r of routes)if (r.path.test(route)) {
+        const newRoute = isGitHubPages() ? BASE_PATH + route : route;
+        for (const r of routes)if (r.path.test(newRoute)) {
             const page = r.handler({
                 goTo: goTo
             });
