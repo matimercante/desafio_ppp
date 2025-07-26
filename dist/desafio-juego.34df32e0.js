@@ -1132,8 +1132,7 @@ var _home = require("./pages/home");
 var _start = require("./pages/start");
 var _game = require("./pages/game");
 var _results = require("./pages/results");
-// const BASE_PATH = "/piedra_papel_tijeras";
-const BASE_PATH = "/ppp";
+const BASE_PATH = "/desafio_ppp";
 const routes = [
     {
         path: /\/home/,
@@ -1162,7 +1161,7 @@ function initRouter(container) {
         handleRouter(completePath);
     }
     function handleRouter(route) {
-        const newRoute = isGitHubPages() ? BASE_PATH + route : route;
+        const newRoute = isGitHubPages() ? route.replace(BASE_PATH, "") : route;
         for (const r of routes)if (r.path.test(newRoute)) {
             const page = r.handler({
                 goTo: goTo
@@ -1172,8 +1171,11 @@ function initRouter(container) {
         }
     }
     const path = location.pathname;
-    if (path == "/") handleRouter("/home");
+    if (path === "/" || path === "/desafio_ppp") goTo("/home");
     else handleRouter(path);
+    window.onpopstate = function() {
+        handleRouter(path);
+    };
 }
 
 },{"./pages/home":"hcj4R","./pages/start":"3qBkg","./pages/game":"lITg0","./pages/results":"5wNxj","@parcel/transformer-js/src/esmodule-helpers.js":"jnFvT"}],"hcj4R":[function(require,module,exports,__globalThis) {

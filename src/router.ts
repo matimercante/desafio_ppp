@@ -5,21 +5,40 @@ import { initResultsPage } from "./pages/results";
 
 const BASE_PATH = "/desafio_ppp";
 
+// const routes = [
+//   {
+//     path: /\/home/,
+//     handler: initHomePage,
+//   },
+//   {
+//     path: /\/start/,
+//     handler: initStartPage,
+//   },
+//   {
+//     path: /\/game/,
+//     handler: initGamePage,
+//   },
+//   {
+//     path: /\/results/,
+//     handler: initResultsPage,
+//   },
+// ];
+
 const routes = [
   {
-    path: /\/home/,
+    path: /^\/home\/?$/,
     handler: initHomePage,
   },
   {
-    path: /\/start/,
+    path: /^\/start\/?$/,
     handler: initStartPage,
   },
   {
-    path: /\/game/,
+    path: /^\/game\/?$/,
     handler: initGamePage,
   },
   {
-    path: /\/results/,
+    path: /^\/results\/?$/,
     handler: initResultsPage,
   },
 ];
@@ -45,14 +64,14 @@ export function initRouter(container) {
       }
     }
   }
-  const path = location.pathname;
-  if (path === "/" || path === "/desafio_ppp") {
+  const path = location.pathname.replace(/\/$/, "");
+  if (path === "" || path === BASE_PATH) {
     goTo("/home");
   } else {
-    handleRouter(path);
+    handleRouter(location.pathname);
   }
 
   window.onpopstate = function () {
-    handleRouter(path);
+    handleRouter(location.pathname);
   };
 }

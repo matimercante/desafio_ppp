@@ -181,7 +181,7 @@ var t=globalThis,e={},n={},o=t.parcelRequire230e;null==o&&((o=function(t){if(t i
       .score{
         text-align: right
       }
-    `,this.shadow.append(t)}}customElements.define("my-score",h);const m={data:{userPlay:"",computerPlay:""},history:[],listeners:[],init(){this.syncWithLocalStorage()},getState(){return this.data},getHistory(){return this.history},setState(t){for(let e of(this.data=t,this.history.push({...t}),this.listeners));localStorage.setItem("state",JSON.stringify(t)),localStorage.setItem("history",JSON.stringify(this.history))},subscribe(t){this.listeners.push(t)},setPlay(t,e){let n=this.getState();n.userPlay=t,n.computerPlay=e,this.setState(n)},getScore(){let t=this.history,e=0,n=0;return t.forEach(t=>{let o=t.userPlay,a=t.computerPlay;o==a?(e++,n++):"papel"==o&&"tijeras"==a||"tijeras"==o&&"piedra"==a||"piedra"==o&&"papel"==a?n++:("papel"==a&&"tijeras"==o||"tijeras"==a&&"piedra"==o||"piedra"==a&&"papel"==o)&&e++}),e>n?console.log("ganaste"):e==n?console.log("empate"):console.log("ganó la computadora"),{userPoints:e,computerPoints:n}},resetGame(){this.data.userPlay="",this.data.computerPlay="",this.history=[],localStorage.removeItem("state"),localStorage.removeItem("history")},syncWithLocalStorage(){let t=localStorage.getItem("state"),e=localStorage.getItem("history");t&&(this.data=JSON.parse(t)),e&&(this.history=JSON.parse(e))}},p=["piedra","papel","tijeras"],u="/desafio_ppp",v=[{path:/\/home/,handler:function(t){let e=document.createElement("div");return e.innerHTML=`
+    `,this.shadow.append(t)}}customElements.define("my-score",h);const m={data:{userPlay:"",computerPlay:""},history:[],listeners:[],init(){this.syncWithLocalStorage()},getState(){return this.data},getHistory(){return this.history},setState(t){for(let e of(this.data=t,this.history.push({...t}),this.listeners));localStorage.setItem("state",JSON.stringify(t)),localStorage.setItem("history",JSON.stringify(this.history))},subscribe(t){this.listeners.push(t)},setPlay(t,e){let n=this.getState();n.userPlay=t,n.computerPlay=e,this.setState(n)},getScore(){let t=this.history,e=0,n=0;return t.forEach(t=>{let o=t.userPlay,a=t.computerPlay;o==a?(e++,n++):"papel"==o&&"tijeras"==a||"tijeras"==o&&"piedra"==a||"piedra"==o&&"papel"==a?n++:("papel"==a&&"tijeras"==o||"tijeras"==a&&"piedra"==o||"piedra"==a&&"papel"==o)&&e++}),e>n?console.log("ganaste"):e==n?console.log("empate"):console.log("ganó la computadora"),{userPoints:e,computerPoints:n}},resetGame(){this.data.userPlay="",this.data.computerPlay="",this.history=[],localStorage.removeItem("state"),localStorage.removeItem("history")},syncWithLocalStorage(){let t=localStorage.getItem("state"),e=localStorage.getItem("history");t&&(this.data=JSON.parse(t)),e&&(this.history=JSON.parse(e))}},p=["piedra","papel","tijeras"],u="/desafio_ppp/",v=[{path:/^\/home\/?$/,handler:function(t){let e=document.createElement("div");return e.innerHTML=`
     <div class="homepage__container">
       <my-text variant="large" color="#009048">Piedra Papel <span style="opacity:50%">\xf3</span> Tijeras</my-text>
       <my-button id="start-btn">Empezar</my-button>
@@ -191,7 +191,7 @@ var t=globalThis,e={},n={},o=t.parcelRequire230e;null==o&&((o=function(t){if(t i
         <hand-component variant="papel" estilo="mini"></hand-component>
       </div>
     </div>
-  `,requestAnimationFrame(()=>{let e=document.querySelector("#start-btn");e?.addEventListener("click",e=>{e.preventDefault(),t.goTo("/start")})}),e}},{path:/\/start/,handler:function(t){let e=document.createElement("div");return e.innerHTML=`
+  `,requestAnimationFrame(()=>{let e=document.querySelector("#start-btn");e?.addEventListener("click",e=>{e.preventDefault(),t.goTo("/start")})}),e}},{path:/^\/start\/?$/,handler:function(t){let e=document.createElement("div");return e.innerHTML=`
     <div class="startpage__container">
       <my-text variant="start" color="#000000">Presion\xe1 jugar
 y eleg\xed: piedra, papel o tijera antes de que pasen los 3 segundos.</my-text>
@@ -202,7 +202,7 @@ y eleg\xed: piedra, papel o tijera antes de que pasen los 3 segundos.</my-text>
         <hand-component variant="papel" estilo="mini"></hand-component>
       </div>
     </div>
-  `,requestAnimationFrame(()=>{let e=document.querySelector("#play-btn");e?.addEventListener("click",e=>{e.preventDefault(),m.resetGame(),t.goTo("/game")})}),e}},{path:/\/game/,handler:function(t){var e=!1;let n=p[Math.floor(Math.random()*p.length)],o=document.createElement("div");return o.innerHTML=`
+  `,requestAnimationFrame(()=>{let e=document.querySelector("#play-btn");e?.addEventListener("click",e=>{e.preventDefault(),m.resetGame(),t.goTo("/game")})}),e}},{path:/^\/game\/?$/,handler:function(t){var e=!1;let n=p[Math.floor(Math.random()*p.length)],o=document.createElement("div");return o.innerHTML=`
     <div class="gamepage__container">
     <div class="gamepage__chands-container">
       <hand-component variant="tijeras" estilo="computer"></hand-component>
@@ -216,11 +216,11 @@ y eleg\xed: piedra, papel o tijera antes de que pasen los 3 segundos.</my-text>
       <hand-component variant="papel" estilo="game"></hand-component>
     </div>
     </div>
-  `,requestAnimationFrame(()=>{o.addEventListener("timeout",()=>{if(console.log("Tiempo terminado"),!1==e){let e=p[Math.floor(Math.random()*p.length)];m.setPlay(e,n),m.getHistory().length<3?t.goTo("/game"):t.goTo("/results")}}),o.addEventListener("handselected",a=>{let i=a.detail;e=!0,o.dispatchEvent(new CustomEvent("computermove",{detail:{id:n,description:"computer move"},bubbles:!0,composed:!0})),m.setPlay(i.id,n),m.getHistory().length<3?setTimeout(()=>{t.goTo("/game")},1e3):setTimeout(()=>{t.goTo("/results")},1e3)})}),o}},{path:/\/results/,handler:function(t){var e="";let n=m.getScore();e=n.userPoints>n.computerPoints?"Ganaste":n.userPoints==n.computerPoints?"Empate":"Perdiste";let o=document.createElement("div");return o.innerHTML=`
+  `,requestAnimationFrame(()=>{o.addEventListener("timeout",()=>{if(console.log("Tiempo terminado"),!1==e){let e=p[Math.floor(Math.random()*p.length)];m.setPlay(e,n),m.getHistory().length<3?t.goTo("/game"):t.goTo("/results")}}),o.addEventListener("handselected",a=>{let i=a.detail;e=!0,o.dispatchEvent(new CustomEvent("computermove",{detail:{id:n,description:"computer move"},bubbles:!0,composed:!0})),m.setPlay(i.id,n),m.getHistory().length<3?setTimeout(()=>{t.goTo("/game")},1e3):setTimeout(()=>{t.goTo("/results")},1e3)})}),o}},{path:/^\/results\/?$/,handler:function(t){var e="";let n=m.getScore();e=n.userPoints>n.computerPoints?"Ganaste":n.userPoints==n.computerPoints?"Empate":"Perdiste";let o=document.createElement("div");return o.innerHTML=`
     <div class="resultspage__container">
       <my-result variant=${e}></my-result>
       <my-score uscore="${n.userPoints}" cscore="${n.computerPoints}"></my-score>
       <my-button id="reset-btn">Volver a Jugar</my-button>
     </div>
-  `,requestAnimationFrame(()=>{let e=document.querySelector("#reset-btn");e?.addEventListener("click",e=>{e.preventDefault(),t.goTo("/start")})}),o}}];function g(){return location.host.includes("matimercante.github.io")}m.init();const y=document.querySelector(".root");y&&function(t){function e(t){let e=g()?u+t:t;history.pushState({},"",e),n(e)}function n(n){let o=g()?n.replace(u,""):n;for(let n of v)if(n.path.test(o)){let o=n.handler({goTo:e});t.firstChild&&t.firstChild.remove(),t.appendChild(o)}}let o=location.pathname;"/"===o||"/desafio_ppp"===o?e("/home"):n(o),window.onpopstate=function(){n(o)}}(y);
-//# sourceMappingURL=desafio-juego.021fa20a.js.map
+  `,requestAnimationFrame(()=>{let e=document.querySelector("#reset-btn");e?.addEventListener("click",e=>{e.preventDefault(),t.goTo("/start")})}),o}}];function g(){return location.host.includes("matimercante.github.io")}m.init();const y=document.querySelector(".root");y&&function(t){function e(t){let e=g()?u+t:t;history.pushState({},"",e),n(e)}function n(n){let o=g()?n.replace(u,""):n;for(let n of v)if(n.path.test(o)){let o=n.handler({goTo:e});t.firstChild&&t.firstChild.remove(),t.appendChild(o)}}let o=location.pathname;"/"===o||o===u?e("/home"):n(o),window.onpopstate=function(){n(location.pathname)}}(y);
+//# sourceMappingURL=desafio-juego.1934ac22.js.map
