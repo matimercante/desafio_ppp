@@ -222,5 +222,5 @@ y eleg\xed: piedra, papel o tijera antes de que pasen los 3 segundos.</my-text>
       <my-score uscore="${n.userPoints}" cscore="${n.computerPoints}"></my-score>
       <my-button id="reset-btn">Volver a Jugar</my-button>
     </div>
-  `,requestAnimationFrame(()=>{let e=document.querySelector("#reset-btn");e?.addEventListener("click",e=>{e.preventDefault(),t.goTo("/start")})}),o}}];function g(){return location.host.includes("matimercante.github.io")}m.init();const y=document.querySelector(".root");y&&function(t){function e(t){let e=g()?u+t:t;history.pushState({},"",e),n(e)}function n(n){let o=g()?n.replace(u,""):n;for(let n of v)if(n.path.test(o)){let o=n.handler({goTo:e});t.firstChild&&t.firstChild.remove(),t.appendChild(o)}}let o=location.pathname;"/"===o||"/desafio_ppp"===o?e("/home"):n(o),window.onpopstate=function(){n(o)}}(y);
-//# sourceMappingURL=desafio-juego.021fa20a.js.map
+  `,requestAnimationFrame(()=>{let e=document.querySelector("#reset-btn");e?.addEventListener("click",e=>{e.preventDefault(),t.goTo("/start")})}),o}}];function g(){return location.host.includes("matimercante.github.io")}m.init();const y=document.querySelector(".root");y&&function(t){function e(t){let e=g()?u+t:t;history.pushState({},"",e),n(e)}function n(n){let o=g()?n.replace(u,""):n;for(let n of v)if(n.path.test(o)){let o=n.handler({goTo:e});t.firstChild&&t.firstChild.remove(),t.appendChild(o)}}let o=location.pathname;"/"==o||"/desafio_ppp"==o?e("/home"):n(o),window.onpopstate=function(){n(o)}}(y);
+//# sourceMappingURL=desafio-juego.863d7fb7.js.map
